@@ -74,6 +74,10 @@ end
 -- RUN FFMPEG
 --
 function run_ffmpeg(input, output, force, from, to, ffmpeg_args)
+  if (input == output) then
+    return false, "Input and Output file are name the same"
+  end
+
   local args = {
     "ffmpeg",
     "-loglevel", "panic", "-hide_banner", --stfu ffmpeg
@@ -97,9 +101,10 @@ function run_ffmpeg(input, output, force, from, to, ffmpeg_args)
   args[#args + 1] = output
 
   msg.info("Run " .. utils.to_string(args))
---  return true
+  osd_confirm("FFMPEG is running, please wait ...");
   local res = utils.subprocess({ args = args, max_size = 1024, cancellable = false })
   msg.info("FFMPEG return: " .. utils.to_string(res.stdout))
+  osd_confirm("FFMPEG finished.");
   if res.status == 0 then
     return true
   else
