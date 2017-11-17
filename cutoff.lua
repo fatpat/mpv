@@ -218,7 +218,8 @@ function trim(before, after)
     return
   end
 
-  local output = path:gsub('%.mp4$', ".trim.mp4")
+  local name, ext = path:match('^(.+)%.(%w%w%w)$')
+  output = name .. '.trim.' .. ext;
 
   local from = -1
   local to = -1
