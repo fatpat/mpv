@@ -1,5 +1,6 @@
 # orignal files
 *.orig
+*.swp
 
 # Compiled Lua sources
 luac.out
